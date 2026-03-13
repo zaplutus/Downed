@@ -1,0 +1,16 @@
+services:
+  videodownloader:
+    build: .
+    container_name: videodownloader
+    ports:
+      - "5000:5000"
+    volumes:
+      # Sparar nedladdade filer utanför containern
+      - ./static:/app/static
+      # Lägg cookies.txt här om du behöver den (måste finnas som fil innan start)
+      # - ./cookies.txt:/app/cookies.txt:ro
+      # state.json delas mellan workers
+      - ./data:/app/data
+    environment:
+      - TZ=Europe/Stockholm
+    restart: unless-stopped
